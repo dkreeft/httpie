@@ -74,22 +74,16 @@ class RequestItems:
             ),
         }
 
-        # Handle nested JSON items first.
-        nested_json_items = [
-            arg
-            for arg in request_item_args
-            if arg.sep == SEPARATOR_DATA_NESTED_JSON
-        ]
+        # Nested JSON items must be treated as a whole.
+        nested_json_items = filter(lambda arg: arg.sep == SEPARATOR_DATA_NESTED_JSON, request_item_args)
         if nested_json_items:
+            request_item_args = filter(lambda arg: arg.sep != SEPARATOR_DATA_NESTED_JSON, request_item_args)
             processor_func, target_dict = rules[SEPARATOR_DATA_NESTED_JSON]
             value = processor_func(nested_json_items)
             target_dict.update(value)
 
         # Then handle all other items.
         for arg in request_item_args:
-            if arg.sep == SEPARATOR_DATA_NESTED_JSON:
-                continue
-
             processor_func, target_dict = rules[arg.sep]
             value = processor_func(arg)
             target_dict[arg.key] = value
