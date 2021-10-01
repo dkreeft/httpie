@@ -147,7 +147,7 @@ def process_data_raw_json_embed_arg(arg: KeyValueArg) -> JSONType:
     return value
 
 
-def process_data_nested_json_embed_args(args: List[KeyValueArg]) -> JSONType:
+def process_data_nested_json_embed_args(args: List[KeyValueArg]) -> Dict[str, JSONType]:
     from .json_forms import encode, to_python
 
     return encode((arg.key, to_python(arg.value)) for arg in args)

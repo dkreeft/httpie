@@ -3,6 +3,7 @@ Routines for JSON forms syntax, used to support nested JSON request items.
 
 Highly inspired from the great jarg project <https://github.com/jdp/jarg/blob/master/jarg/jsonform.py>.
 """
+import json
 from typing import Any, Dict, Union
 
 
@@ -129,9 +130,8 @@ def to_python(value: str) -> Union[None, str, int, float]:
     """Try to convert the JSON-like `value` to a known specialized Python object.
 
     """
-    for conv in (int, float):
-        try:
-            return conv(value)
-        except (ValueError, TypeError):
-            pass
+    try:
+        return json.loads(value)
+    except ValueError:
+        pass
     return value

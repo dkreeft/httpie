@@ -118,6 +118,10 @@ def test_duplicate_keys_support_from_input_file():
         ['error[good]$=BOOM!', 'error[bad$=BOOM BOOM!'],
         {'error': {'good': 'BOOM!'}, 'error[bad': 'BOOM BOOM!'},
     ),
+    (
+        ['special[]$=true', 'special[]$=false', 'special[]$="true"', 'special[]$=null'],
+        {'special': [True, False, 'true', None]},
+    ),
 ])
 def test_nested_json_syntax(input_json, expected_json, httpbin_both):
     r = http('POST', httpbin_both + '/post', *input_json)
