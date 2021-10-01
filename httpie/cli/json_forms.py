@@ -133,5 +133,4 @@ def to_python(value: str) -> Union[None, str, int, float]:
     try:
         return json.loads(value)
     except ValueError:
-        pass
-    return value
+        return value
