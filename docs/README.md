@@ -483,6 +483,62 @@ Host: pie.dev
 }
 ```
 
+### Nested JSON fields
+
+Nested JSON fields use the `$=` separator, which allows you to embed arbitrary JSON data into the resulting JSON object.
+
+```bash
+$ http PUT pie.dev/put \
+    'mix$=scalar' \
+    'mix[0]$=array 1' \
+    'mix[2]$=array 2' \
+    'mix[key]$=key key' \
+    'mix[car]$=car key' \
+    'arr$=1' 'arr$=2' \
+    'wow[such][deep][3][much][power][!]$=Amaze' \
+    'highlander[]$=one'
+```
+
+```http
+PUT /person/1 HTTP/1.1
+Accept: application/json, */*;q=0.5
+Content-Type: application/json
+Host: pie.dev
+
+{
+    "arr": [
+        1,
+        2
+    ],
+    "highlander": [
+        "one"
+    ],
+    "mix": {
+        "": "scalar",
+        "0": "array 1",
+        "2": "array 2",
+        "car": "car key",
+        "key": "key key"
+    },
+    "wow": {
+        "such": {
+            "deep": [
+                null,
+                null,
+                null,
+                {
+                    "much": {
+                        "power": {
+                            "!": "Amaze"
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}
+```
+
 ### Raw and complex JSON
 
 Please note that with the [request items](#request-items) data field syntax, commands can quickly become unwieldy when sending complex structures.
@@ -499,9 +555,6 @@ $ http --raw '{"hello": "world"}' POST pie.dev/post
 ```bash
 $ http POST pie.dev/post < files/data.json
 ```
-
-Furthermore, the structure syntax only allows you to send an object as the JSON document, but not an array, etc.
-Here, again, the solution is to use [redirected input](#redirected-input).
 
 ## Forms
 
