@@ -3,9 +3,7 @@ Routines for JSON forms syntax, used to support nested JSON request items.
 
 Highly inspired from the great jarg project <https://github.com/jdp/jarg/blob/master/jarg/jsonform.py>.
 """
-from typing import Any, Dict, List, Union
-
-from .argtypes import KeyValueArg
+from typing import Any, Dict, Union
 
 
 def parse_path(path: str) -> str:
@@ -137,7 +135,3 @@ def to_python(value: str) -> Union[None, str, int, float]:
         except (ValueError, TypeError):
             pass
     return value
-
-
-def parse_request_items(args: List[KeyValueArg]) -> Dict[str, Any]:
-    return encode((arg.key, to_python(arg.value)) for arg in args)

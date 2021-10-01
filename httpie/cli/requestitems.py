@@ -154,9 +154,9 @@ def process_data_raw_json_embed_arg(arg: KeyValueArg) -> JSONType:
 
 
 def process_data_nested_json_embed_args(args: List[KeyValueArg]) -> JSONType:
-    from .json_forms import parse_request_items
+    from .json_forms import encode, to_python
 
-    return parse_request_items(args)
+    return encode((arg.key, to_python(arg.value)) for arg in args)
 
 
 def load_text_file(item: KeyValueArg) -> str:
