@@ -490,17 +490,17 @@ HTTPie supports the [JSON form](https://www.w3.org/TR/html-json-forms/) syntax.
 
 ```bash
 $ http PUT pie.dev/put \
-    'obj$=scalar' \        # Object — blank key
-    'obj[0]$=array 1' \    # Object — "0" key
-    'obj[key]$=key key' \  # Object — "key" key
-    'arr$=1' \             # Array — first item
-    'arr$=2' \             # Array — second item
-    'highlander[]$=one' \  # Array — no index
-    'bool$=true' \         # Boolean
-    'string$="true"' \     # String
-    'null$=null' \         # Null
-    'int$=42' \            # Integer
-    'float$=4.2' \         # Float
+    'object$=scalar' \        # Object — blank key
+    'object[0]$=array 1' \    # Object — "0" key
+    'object[key]$=key key' \  # Object — "key" key
+    'array$=1' \              # Array — first item
+    'array$=2' \              # Array — second item
+    'array[]$=3' \            # Array — append (third item)
+    'boolean$=true' \         # Boolean
+    'string$="true"' \        # String
+    'null$=null' \            # Null
+    'integer$=42' \           # Integer
+    'float$=4.2' \            # Float
     'wow[such][deep][3][much][power][!]$=Amaze'  # Nested object
 ```
 
@@ -511,18 +511,16 @@ Content-Type: application/json
 Host: pie.dev
 
 {
-    "arr": [
+    "array": [
         1,
-        2
+        2,
+        3
     ],
-    "bool": true,
+    "boolean": true,
     "float": 4.2,
-    "highlander": [
-        "one"
-    ],
-    "int": 42,
+    "integer": 42,
     "null": null,
-    "obj": {
+    "object": {
         "": "scalar",
         "0": "array 1",
         "key": "key key"
