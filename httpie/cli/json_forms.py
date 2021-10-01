@@ -1,7 +1,7 @@
 """
 Routines for JSON forms syntax, used to support nested JSON request items.
 
-Highly inspired from from the great jarg project <https://github.com/jdp/jarg/blob/master/jarg/jsonform.py>.
+Highly inspired from the great jarg project <https://github.com/jdp/jarg/blob/master/jarg/jsonform.py>.
 """
 from typing import Any, Dict, List, Union
 

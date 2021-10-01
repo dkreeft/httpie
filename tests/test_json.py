@@ -129,7 +129,7 @@ def test_nested_json_sparse_array(httpbin_both):
     assert len(r.json['json']['test']) == 101
 
 
-def test_mixed_json_syntaxes(httpbin_both):
+def test_mixed_json_syntax(httpbin_both):
     input_json = (
         'foo2:=true',
         'bar2:="123"',
