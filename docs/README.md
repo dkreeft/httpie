@@ -490,14 +490,18 @@ HTTPie supports the [JSON form](https://www.w3.org/TR/html-json-forms/) syntax.
 
 ```bash
 $ http PUT pie.dev/put \
-    'mix$=scalar' \
-    'mix[0]$=array 1' \
-    'mix[2]$=array 2' \
-    'mix[key]$=key key' \
-    'mix[car]$=car key' \
-    'arr$=1' 'arr$=2' \
-    'wow[such][deep][3][much][power][!]$=Amaze' \
-    'highlander[]$=one'
+    'obj$=scalar' \        # Object — blank key
+    'obj[0]$=array 1' \    # Object — "0" key
+    'obj[key]$=key key' \  # Object — "key" key
+    'arr$=1' \             # Array — first item
+    'arr$=2' \             # Array — second item
+    'highlander[]$=one' \  # Array — no index
+    'bool$=true' \         # Boolean
+    'string$="true"' \     # String
+    'null$=null' \         # Null
+    'int$=42' \            # Integer
+    'float$=4.2' \         # Float
+    'wow[such][deep][3][much][power][!]$=Amaze'  # Nested object
 ```
 
 ```http
@@ -511,16 +515,19 @@ Host: pie.dev
         1,
         2
     ],
+    "bool": true,
+    "float": 4.2,
     "highlander": [
         "one"
     ],
-    "mix": {
+    "int": 42,
+    "null": null,
+    "obj": {
         "": "scalar",
         "0": "array 1",
-        "2": "array 2",
-        "car": "car key",
         "key": "key key"
     },
+    "string": "true",
     "wow": {
         "such": {
             "deep": [
