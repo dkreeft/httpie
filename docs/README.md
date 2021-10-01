@@ -486,6 +486,7 @@ Host: pie.dev
 ### Nested JSON fields
 
 Nested JSON fields use the `$=` separator, which allows you to embed arbitrary JSON data into the resulting JSON object.
+HTTPie supports the [JSON form](https://www.w3.org/TR/html-json-forms/) syntax.
 
 ```bash
 $ http PUT pie.dev/put \
