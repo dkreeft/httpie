@@ -46,12 +46,6 @@ SEPARATOR_GROUP_DATA_EMBED_ITEMS = frozenset({
     SEPARATOR_DATA_EMBED_RAW_JSON_FILE,
 })
 
-# Separators for raw JSON items
-SEPARATOR_GROUP_RAW_JSON_ITEMS = frozenset([
-    SEPARATOR_DATA_RAW_JSON,
-    SEPARATOR_DATA_EMBED_RAW_JSON_FILE,
-])
-
 # Separators allowed in ITEM arguments
 SEPARATOR_GROUP_ALL_ITEMS = frozenset({
     SEPARATOR_HEADER,
