@@ -4,7 +4,7 @@ from typing import Callable, Dict, IO, List, Optional, Tuple, Union
 from .argtypes import KeyValueArg
 from .constants import (
     SEPARATORS_GROUP_MULTIPART, SEPARATOR_DATA_EMBED_FILE_CONTENTS,
-    SEPARATOR_DATA_EMBED_RAW_JSON_FILE,
+    SEPARATOR_DATA_EMBED_RAW_JSON_FILE, SEPARATOR_DATA_NESTED_JSON,
     SEPARATOR_DATA_RAW_JSON, SEPARATOR_DATA_STRING, SEPARATOR_FILE_UPLOAD,
     SEPARATOR_FILE_UPLOAD_TYPE, SEPARATOR_HEADER, SEPARATOR_HEADER_EMPTY,
     SEPARATOR_QUERY_PARAM,
@@ -60,6 +60,10 @@ class RequestItems:
                 process_data_embed_file_contents_arg,
                 instance.data,
             ),
+            SEPARATOR_DATA_NESTED_JSON: (
+                process_data_nested_json_embed_args,
+                instance.data,
+            ),
             SEPARATOR_DATA_RAW_JSON: (
                 process_data_raw_json_embed_arg,
                 instance.data,
@@ -70,7 +74,22 @@ class RequestItems:
             ),
         }
 
+        # Handle nested JSON items first.
+        nested_json_items = [
+            arg
+            for arg in request_item_args
+            if arg.sep == SEPARATOR_DATA_NESTED_JSON
+        ]
+        if nested_json_items:
+            processor_func, target_dict = rules[SEPARATOR_DATA_NESTED_JSON]
+            value = processor_func(nested_json_items)
+            target_dict.update(value)
+
+        # Then handle all other items.
         for arg in request_item_args:
+            if arg.sep == SEPARATOR_DATA_NESTED_JSON:
+                continue
+
             processor_func, target_dict = rules[arg.sep]
             value = processor_func(arg)
             target_dict[arg.key] = value
@@ -132,6 +151,12 @@ def process_data_embed_raw_json_file_arg(arg: KeyValueArg) -> JSONType:
 def process_data_raw_json_embed_arg(arg: KeyValueArg) -> JSONType:
     value = load_json(arg, arg.value)
     return value
+
+
+def process_data_nested_json_embed_args(args: List[KeyValueArg]) -> JSONType:
+    from .json_forms import parse_request_items
+
+    return parse_request_items(args)
 
 
 def load_text_file(item: KeyValueArg) -> str:

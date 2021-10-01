@@ -86,3 +86,79 @@ def test_duplicate_keys_support_from_input_file():
     # Check --unsorted
     r = http(*args, '--unsorted')
     assert JSON_WITH_DUPES_FORMATTED_UNSORTED in r
+
+
+@pytest.mark.parametrize('input_json, expected_json', [
+    # Examples taken from https://www.w3.org/TR/html-json-forms/
+    (
+        ['bottle-on-wall$=1', 'bottle-on-wall$=2', 'bottle-on-wall$=3'],
+        {'bottle-on-wall': [1, 2, 3]},
+    ),
+    (
+        ['pet[species]$=Dahut', 'pet[name]$=Hypatia', 'kids[1]$=Thelma', 'kids[0]$=Ashley'],
+        {'pet': {'species': 'Dahut', 'name': 'Hypatia'}, 'kids': ['Ashley', 'Thelma']},
+    ),
+    (
+        ['pet[0][species]$=Dahut', 'pet[0][name]$=Hypatia', 'pet[1][species]$=Felis Stultus', 'pet[1][name]$=Billie'],
+        {'pet': [{'species': 'Dahut', 'name': 'Hypatia'}, {'species': 'Felis Stultus', 'name': 'Billie'}]},
+    ),
+    (
+        ['wow[such][deep][3][much][power][!]$=Amaze'],
+        {'wow': {'such': {'deep': [None, None, None, {'much': {'power': {'!': 'Amaze'}}}]}}},
+    ),
+    (
+        ['mix$=scalar', 'mix[0]$=array 1', 'mix[2]$=array 2', 'mix[key]$=key key', 'mix[car]$=car key'],
+        {'mix': {'': 'scalar', '0': 'array 1', '2': 'array 2', 'key': 'key key', 'car': 'car key'}},
+    ),
+    (
+        ['highlander[]$=one'],
+        {'highlander': ['one']},
+    ),
+    (
+        ['error[good]$=BOOM!', 'error[bad$=BOOM BOOM!'],
+        {'error': {'good': 'BOOM!'}, 'error[bad': 'BOOM BOOM!'},
+    ),
+])
+def test_nested_json_syntax(input_json, expected_json, httpbin_both):
+    r = http('POST', httpbin_both + '/post', *input_json)
+    assert r.json['json'] == expected_json
+
+
+def test_nested_json_sparse_array(httpbin_both):
+    r = http('POST', httpbin_both + '/post', 'test[0]$=1', 'test[100]$=1')
+    assert len(r.json['json']['test']) == 101
+
+
+def test_mixed_json_syntaxes(httpbin_both):
+    input_json = (
+        'foo2:=true',
+        'bar2:="123"',
+        'order:={"map":{"1":"first","2":"second"}}',
+        'a=b',
+        'foo[]$=bar',
+        'foo[bar][baz][1][refoo]$=rebaz',
+    )
+    expected_json = {
+        "a": "b",
+        "bar2": "123",
+        "foo": {
+            "0": "bar",
+            "bar": {
+                "baz": [
+                    None,
+                    {
+                        "refoo": "rebaz"
+                    }
+                ]
+            }
+        },
+        "foo2": True,
+        "order": {
+            "map": {
+                "1": "first",
+                "2": "second"
+            }
+        }
+    }
+    r = http('POST', httpbin_both + '/post', *input_json)
+    assert r.json['json'] == expected_json
