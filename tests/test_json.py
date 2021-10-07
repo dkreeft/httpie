@@ -154,12 +154,12 @@ def test_duplicate_keys_support_from_input_file():
     ),
 ])
 def test_nested_json_syntax(input_json, expected_json, httpbin_both):
-    r = http('POST', httpbin_both + '/post', *input_json)
+    r = http(httpbin_both + '/post', *input_json)
     assert r.json['json'] == expected_json
 
 
 def test_nested_json_sparse_array(httpbin_both):
-    r = http('POST', httpbin_both + '/post', 'test[0]$=1', 'test[100]$=1')
+    r = http(httpbin_both + '/post', 'test[0]$=1', 'test[100]$=1')
     assert len(r.json['json']['test']) == 101
 
 
@@ -194,5 +194,5 @@ def test_mixed_json_syntax(httpbin_both):
             }
         }
     }
-    r = http('POST', httpbin_both + '/post', *input_json)
+    r = http(httpbin_both + '/post', *input_json)
     assert r.json['json'] == expected_json
