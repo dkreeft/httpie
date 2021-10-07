@@ -6,6 +6,7 @@ from setuptools import setup, find_packages
 
 import httpie
 
+
 # Note: keep requirements here to ease distributions packaging
 tests_require = [
     'pytest',
@@ -21,8 +22,10 @@ dev_require = [
     'flake8-tuple',
     'pyopenssl',
     'pytest-cov',
+    'pyyaml',
     'twine',
     'wheel',
+    'Jinja2'
 ]
 install_requires = [
     'charset_normalizer>=2.0.0',

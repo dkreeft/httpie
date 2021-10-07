@@ -25,7 +25,10 @@ export PATH := $(VENV_BIN):$(PATH)
 all: uninstall-httpie install test
 
 
-install: venv
+install: venv install-reqs
+
+
+install-reqs:
 	@echo $(H1)Updating package tools$(H1END)
 	$(VENV_PIP) install --upgrade pip wheel
 
@@ -36,6 +39,7 @@ install: venv
 	$(VENV_PIP) install --upgrade --editable .
 
 	@echo
+
 
 clean:
 	@echo $(H1)Cleaning up$(H1END)
@@ -126,7 +130,7 @@ pycodestyle: codestyle
 codestyle:
 	@echo $(H1)Running flake8$(H1END)
 	@[ -f $(VENV_BIN)/flake8 ] || $(VENV_PIP) install --upgrade --editable '.[dev]'
-	$(VENV_BIN)/flake8 httpie/ tests/ extras/ *.py
+	$(VENV_BIN)/flake8 httpie/ tests/ docs/packaging/brew/ *.py
 	@echo
 
 
@@ -140,7 +144,12 @@ codecov-upload:
 
 doc-check:
 	@echo $(H1)Running documentations checks$(H1END)
-	mdl --verbose --git-recurse --style docs/linter/mdl-styles.rb .
+	mdl --git-recurse --style docs/markdownlint.rb .
+
+
+doc-update-install:
+	@echo $(H1)Updating installation instructions in the docs$(H1END)
+	$(VENV_PYTHON) docs/installation/generate.py
 
 
 ###############################################################################
@@ -187,14 +196,14 @@ uninstall-httpie:
 ###############################################################################
 
 brew-deps:
-	extras/brew-deps.py
+	docs/packaging/brew/brew-deps.py
 
 brew-test:
 	@echo $(H1)Uninstalling httpie$(H1END)
 	- brew uninstall httpie
 
 	@echo $(H1)Building from source…$(H1END)
-	- brew install --build-from-source ./extras/httpie.rb
+	- brew install --build-from-source ./docs/packaging/brew/httpie.rb
 
 	@echo $(H1)Verifying…$(H1END)
 	brew test httpie

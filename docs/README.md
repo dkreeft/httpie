@@ -41,99 +41,283 @@ You are invited to submit fixes and improvements to the docs by editing [this fi
 
 ## Installation
 
-### macOS
+<div data-installation-instructions>
 
-On macOS, HTTPie can also be installed via [Homebrew](https://brew.sh/):
+<!--
+THE INSTALLATION SECTION IS GENERATED
+
+Do not edit here, but in docs/installation/.
+
+-->
+
+- [Universal](#universal)
+- [macOS](#macos)
+- [Windows](#windows)
+- [Linux](#linux)
+- [FreeBSD](#freebsd)
+
+### Universal
+
+#### PyPi
+
+Please make sure you have Python 3.6 or newer (`python --version`).
 
 ```bash
+# Install
+$ python -m pip install --upgrade pip wheel
+$ python -m pip install httpie
+```
+
+```bash
+# Upgrade
+$ python -m pip install --upgrade pip wheel
+$ python -m pip install --upgrade httpie
+```
+
+### macOS
+
+#### Homebrew
+
+To install [Homebrew](https://brew.sh/) follow [installation instructions](https://docs.brew.sh/Installation).
+
+```bash
+# Install
+$ brew update
 $ brew install httpie
 ```
 
-A MacPorts *port* is also available:
+```bash
+# Upgrade
+$ brew update
+$ brew upgrade httpie
+```
+
+#### MacPorts
+
+To install [MacPorts](https://www.macports.org/) follow [installation instructions](https://www.macports.org/install.php).
 
 ```bash
+# Install
+$ port selfupdate
 $ port install httpie
+```
+
+```bash
+# Upgrade
+$ port selfupdate
+$ port upgrade httpie
+```
+
+#### Snapcraft (macOS)
+
+To install [Snapcraft](https://snapcraft.io/) follow [installation instructions](https://snapcraft.io/docs/installing-snapd).
+
+```bash
+# Install
+$ snap install httpie
+```
+
+```bash
+# Upgrade
+$ snap refresh httpie
+```
+
+#### Spack (macOS)
+
+To install [Spack](https://spack.readthedocs.io/en/latest/index.html) follow [installation instructions](https://spack.readthedocs.io/en/latest/getting_started.html#installation).
+
+```bash
+# Install
+$ spack install httpie
+```
+
+```bash
+# Upgrade
+$ spack install httpie
+```
+
+### Windows
+
+#### Chocolatey
+
+To install [Chocolatey](https://chocolatey.org/) follow [installation instructions](https://chocolatey.org/install).
+
+```bash
+# Install
+$ choco install httpie
+```
+
+```bash
+# Upgrade
+$ choco upgrade httpie
 ```
 
 ### Linux
 
-HTTPie is available on the [Snap Store](https://snapcraft.io/httpie):
+#### Snapcraft (Linux)
+
+To install [Snapcraft](https://snapcraft.io/) follow [installation instructions](https://snapcraft.io/docs/installing-snapd).
 
 ```bash
+# Install
 $ snap install httpie
 ```
 
-And most Linux distributions provide a package that can be installed using the
-system package manager, for example:
+```bash
+# Upgrade
+$ snap refresh httpie
+```
+
+#### Linuxbrew
+
+To install [Linuxbrew](https://docs.brew.sh/Homebrew-on-Linux) follow [installation instructions](https://docs.brew.sh/Homebrew-on-Linux#install).
 
 ```bash
-# Debian, Ubuntu, etc.
+# Install
+$ brew update
+$ brew install httpie
+```
+
+```bash
+# Upgrade
+$ brew update
+$ brew upgrade httpie
+```
+
+#### Debian and Ubuntu
+
+Also works for other Debian-derived distributions like MX Linux, Linux Mint, deepin, Pop!_OS, KDE neon, Zorin OS, elementary OS, Kubuntu, Devuan, Linux Lite, Peppermint OS, Lubuntu, antiX, Xubuntu, etc.
+
+```bash
+# Install
+$ apt update
 $ apt install httpie
 ```
 
 ```bash
-# Fedora
+# Upgrade
+$ apt update
+$ apt upgrade httpie
+```
+
+#### Fedora
+
+```bash
+# Install
+$ dnf update
 $ dnf install httpie
 ```
 
 ```bash
-# CentOS, RHEL, ...
+# Upgrade
+$ dnf update
+$ dnf upgrade httpie
+```
+
+#### CentOS and RHEL
+
+Also works for other RHEL-derived distributions like ClearOS, Oracle Linux, etc.
+
+```bash
+# Install
+$ yum update
 $ yum install epel-release
 $ yum install httpie
 ```
 
 ```bash
-# Gentoo
-$ emerge httpie
+# Upgrade
+$ yum update
+$ yum upgrade httpie
 ```
 
-```bash
-# Arch Linux
-$ pacman -S httpie
-```
+#### Alpine Linux
 
 ```bash
-# Alpine Linux
+# Install
+$ apk update
 $ apk add httpie
 ```
 
 ```bash
-# Solus
-$ eopkg install httpie
+# Upgrade
+$ apk update
+$ apk add --upgrade httpie
+```
+
+#### Gentoo
+
+```bash
+# Install
+$ emerge --sync
+$ emerge httpie
+```
+
+```bash
+# Upgrade
+$ emerge --sync
+$ emerge --update httpie
+```
+
+#### Arch Linux
+
+Also works for other Arch-derived distributions like ArcoLinux, EndeavourOS, Artix Linux, etc.
+
+```bash
+# Install
+$ pacman -Sy httpie
+```
+
+```bash
+# Upgrade
+$ pacman -Syu httpie
+```
+
+#### Void Linux
+
+```bash
+# Install
+$ xbps-install -Su
+$ xbps-install -S httpie
+```
+
+```bash
+# Upgrade
+$ xbps-install -Su
+$ xbps-install -Su httpie
+```
+
+#### Spack (Linux)
+
+To install [Spack](https://spack.readthedocs.io/en/latest/index.html) follow [installation instructions](https://spack.readthedocs.io/en/latest/getting_started.html#installation).
+
+```bash
+# Install
+$ spack install httpie
+```
+
+```bash
+# Upgrade
+$ spack install httpie
 ```
 
 ### FreeBSD
 
-On FreeBSD, HTTPie is available in the ports collection. A prebuilt package
-can be installed via [pkg(8)](https://man.freebsd.org/pkg/8>):
+#### FreshPorts
 
 ```bash
+# Install
 $ pkg install www/py-httpie
 ```
 
-### Windows, universal
-
-A universal installation method (that works on Linux, macOS, Windows, FreeBSD, and always provides the latest version) is to use [pip](https://pypi.org/project/pip/):
-
 ```bash
-# Make sure we have an up-to-date version of pip and setuptools:
-$ python -m pip install --upgrade pip setuptools
-
-$ python -m pip install --upgrade httpie
+# Upgrade
+$ pkg upgrade www/py-httpie
 ```
 
-(If `pip` installation fails for some reason, you can try
-`easy_install httpie` as a fallback.)
+<!-- /GENERATED SECTION -->
 
-Windows users can also install HTTPie with [Chocolatey](https://chocolatey.org):
-
-```bash
-$ choco upgrade httpie
-```
-
-### Python version
-
-Python version 3.6 or greater is required.
+</div>
 
 ### Unstable version
 
@@ -146,14 +330,21 @@ You can install it on Linux, macOS, Windows, or FreeBSD with `pip`:
 $ python -m pip install --upgrade https://github.com/httpie/httpie/archive/master.tar.gz
 ```
 
-Or on macOS with Homebrew:
+Or on macOS, and Linux, with Homebrew:
 
 ```bash
 $ brew uninstall --force httpie
 $ brew install --HEAD httpie
 ```
 
-Verify that now you have the [current development version identifier](https://github.com/httpie/httpie/blob/master/httpie__init__.py#L6) with the `-dev` suffix, for example:
+And even on macOS, and Linux, with Snapcraft:
+
+```bash
+$ snap remove httpie
+$ snap install httpie --edge
+```
+
+Verify that now you have the [current development version identifier](https://github.com/httpie/httpie/blob/master/httpie/__init__.py#L6) with the `.dev0` suffix, for example:
 
 ```bash
 $ http --version
@@ -256,7 +447,50 @@ Which looks similar to the actual `Request-Line` that is sent:
 DELETE /delete HTTP/1.1
 ```
 
-When the `METHOD` argument is omitted from the command, HTTPie defaults to either `GET` (with no request data) or `POST` (with request data).
+In addition to the standard methods (`GET`, `POST`, `HEAD`, `PUT`, `PATCH`, `DELETE`, etc.), you can use custom method names, for example:
+
+```bash
+$ http AHOY pie.dev/post
+```
+
+There are no restrictions regarding which request methods can include a body. You can send an empty `POST` request:
+
+```bash
+$ http POST pie.dev/post
+```
+
+You can also make `GET` requests contaning a body:
+
+```bash
+$ http GET pie.dev/get hello=world
+```
+
+### Optional `GET` and `POST`
+
+The `METHOD` argument is optional, and when you don’t specify it, HTTPie defaults to:
+
+- `GET` for requests without body
+- `POST` for requests with body
+
+Here we don’t specify any request data, so both commands will send the same `GET` request:
+
+```bash
+$ http GET pie.dev/get
+```
+
+```bash
+$ http pie.dev/get
+```
+
+Here, on the other hand, we do have some data, so both commands will make the same `POST` request:
+
+```bash
+$ http POST pie.dev/post hello=world
+```
+
+```bash
+$ http pie.dev/post hello=world
+```
 
 ## Request URL
 
@@ -1239,6 +1473,8 @@ HTTPie does several things by default in order to make its terminal output easy 
 
 ### Colors and formatting
 
+<!-- TODO: mention body colors/formatting are based on content-type + --response-mime (heuristics for JSON content-type) -->
+
 Syntax highlighting is applied to HTTP headers and bodies (where it makes sense).
 You can choose your preferred color scheme via the `--style` option if you don’t like the default one.
 There are dozens of styles available, here are just a few notable ones:
@@ -1274,15 +1510,14 @@ You can further control the applied formatting via the more granular [format opt
 The `--format-options=opt1:value,opt2:value` option allows you to control how the output should be formatted
 when formatting is applied. The following options are available:
 
-|           Option | Default value | Shortcuts                                 |
-| ---------------: | :-----------: | ----------------------------------------- |
-|   `headers.sort` |    `true`     | `--sorted`, `--unsorted`                  |
-|    `json.format` |    `true`     | N/A                                       |
-|    `json.indent` |      `4`      | N/A                                       |
-| `json.sort_keys` |    `true`     | `--sorted`, `--unsorted`                  |
-|    `response.as` |     `''`      | [`--response-as`](#response-content-type) |
-|     `xml.format` |    `true`     | N/A                                       |
-|     `xml.indent` |      `2`      | N/A                                       |
+|           Option | Default value | Shortcuts                |
+| ---------------: | :-----------: | ------------------------ |
+|   `headers.sort` |    `true`     | `--sorted`, `--unsorted` |
+|    `json.format` |    `true`     | N/A                      |
+|    `json.indent` |      `4`      | N/A                      |
+| `json.sort_keys` |    `true`     | `--sorted`, `--unsorted` |
+|     `xml.format` |    `true`     | N/A                      |
+|     `xml.indent` |      `2`      | N/A                      |
 
 For example, this is how you would disable the default header and JSON key
 sorting, and specify a custom JSON indent size:
@@ -1297,11 +1532,10 @@ sorting-related format options (currently it means JSON keys and headers):
 
 This is something you will typically store as one of the default options in your [config](#config) file.
 
-#### Response `Content-Type`
+### Response `Content-Type`
 
-The `--response-as=value` option is a shortcut for `--format-options response.as:value`,
-and it allows you to override the response `Content-Type` sent by the server.
-That makes it possible for HTTPie to pretty-print the response even when the server specifies the type incorrectly.
+The `--response-as=value` option allows you to override the response `Content-Type` sent by the server.
+That makes it possible for HTTPie to print the response even when the server specifies the type incorrectly.
 
 For example, the following request will force the response to be treated as XML:
 
@@ -1320,27 +1554,6 @@ $ http --response-as='text/plain; charset=big5' pie.dev/get
 ```
 
 Given the encoding is not sent by the server, HTTPie will auto-detect it.
-
-### Binary data
-
-Binary data is suppressed for terminal output, which makes it safe to perform requests to URLs that send back binary data.
-Binary data is also suppressed in redirected but prettified output.
-The connection is closed as soon as we know that the response body is binary,
-
-```bash
-$ http pie.dev/bytes/2000
-```
-
-You will nearly instantly see something like this:
-
-```http
-HTTP/1.1 200 OK
-Content-Type: application/octet-stream
-
-+-----------------------------------------+
-| NOTE: binary data not shown in terminal |
-+-----------------------------------------+
-```
 
 ### Redirected output
 
@@ -1382,6 +1595,42 @@ function httpless {
     http --pretty=all --print=hb "$@" | less -R;
 }
 ```
+
+### Binary data
+
+Binary data is suppressed for terminal output, which makes it safe to perform requests to URLs that send back binary data.
+Binary data is also suppressed in redirected but prettified output.
+The connection is closed as soon as we know that the response body is binary,
+
+```bash
+$ http pie.dev/bytes/2000
+```
+
+You will nearly instantly see something like this:
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/octet-stream
+
++-----------------------------------------+
+| NOTE: binary data not shown in terminal |
++-----------------------------------------+
+```
+
+<!--
+### Display encoding
+
+TODO:
+(both request/response)
+
+- we look at content-type
+- else we detect
+- short texts default to utf8
+
+(only response)
+
+- --response-charset allows overwriting
+- -->
 
 ## Download mode
 
